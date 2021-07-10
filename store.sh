@@ -6,6 +6,11 @@ EMP_RATE_PER_HR=20;
 NUM_WORKING_DAYS=20;
 totalWorkHours=0;
 totalWorkingDays=0;
+function calcDailyWage() {
+	local workHrs=$1
+	wage=$(( $workHrs * $EMP_RATE_PER_HR ))
+	echo $wage
+}
 while [[ $totalWorkHours -lt $MAX_HRS_IN_MONTH && $totalWorkingDays -lt $NUM_WORKING_DAYS ]]
 do
 	(( totalWorkingDays++ ))
@@ -14,3 +19,7 @@ do
 	empDailyWage[ $totalWorkingDays ]="$( calcDailyWage $workHours )"
 
 done
+totalSalary="$( calcDailyWage $totalWorkHours )"
+echo "Daily Wage " ${empDailyWage[@]}
+echo "All Keys " ${!empDailyWage[@]}
+echo "$totalSalary"
